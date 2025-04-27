@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { Button } from "@/components/ui/button";
@@ -54,7 +53,7 @@ const Leaderboard = () => {
   return (
     <PageContainer>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-display text-slab-rust mb-6">GRATITUDE GANGSTERS LEADERBOARD</h1>
+        <h1 className="text-4xl font-display text-slab-rust mb-6">SLAB CITY LEGENDS LEADERBOARD</h1>
         
         <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed mb-8">
           <h2 className="text-2xl font-display text-slab-dark mb-4">TOP CONTRIBUTORS</h2>
@@ -188,6 +187,10 @@ const Leaderboard = () => {
         <div className="bg-slab-dark/80 backdrop-blur-sm text-slab-cream rounded-lg p-6 shadow-lg">
           <h2 className="text-2xl font-display text-slab-copper mb-4">HOW TO EARN GRATITUDE POINTS</h2>
           <ul className="space-y-3">
+            <li className="flex items-start">
+              <span className="text-slab-copper mr-2">•</span>
+              <span><strong>Real Life Missions:</strong> Visit Slab City, California and complete missions for characters (10-1000 points)</span>
+            </li>
             <li className="flex items-start">
               <span className="text-slab-copper mr-2">•</span>
               <span><strong>Character Donations:</strong> Support specific characters and their causes (100-500 points)</span>
