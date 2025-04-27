@@ -1,4 +1,3 @@
-
 import { PageContainer } from '@/components/layout/PageContainer';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
@@ -65,7 +64,7 @@ const Decks = () => {
         <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed mb-12">
           <h2 className="text-2xl font-display text-slab-dark mb-4">ABOUT THE CARDS</h2>
           <p className="mb-4">
-            Slab City Slabbers & Shenanigans features beautifully illustrated cards that bring the unique 
+            Slab City Legends features beautifully illustrated cards that bring the unique 
             world of Slab City to life. Each card is designed with the dusty, creative, and rebellious 
             aesthetic that defines the last free place on earth.
           </p>
