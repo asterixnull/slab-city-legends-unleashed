@@ -1,92 +1,78 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 40 38% 95%;
+    --foreground: 30 10% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 39 30% 95%;
+    --card-foreground: 30 10% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 39 30% 97%;
+    --popover-foreground: 30 10% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 24 60% 40%;
+    --primary-foreground: 39 30% 97%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 39 30% 85%;
+    --secondary-foreground: 24 40% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 39 15% 85%;
+    --muted-foreground: 30 10% 40%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 24 60% 50%;
+    --accent-foreground: 39 30% 97%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 39 30% 97%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 30 15% 80%;
+    --input: 30 15% 80%;
+    --ring: 24 40% 40%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 30 10% 18%;
+    --sidebar-foreground: 39 30% 90%;
+    --sidebar-primary: 24 60% 50%;
+    --sidebar-primary-foreground: 39 30% 97%;
+    --sidebar-accent: 30 10% 25%;
+    --sidebar-accent-foreground: 39 30% 90%;
+    --sidebar-border: 30 10% 25%;
+    --sidebar-ring: 24 60% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 30 10% 15%;
+    --foreground: 39 30% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 30 10% 18%;
+    --card-foreground: 39 30% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 30 10% 18%;
+    --popover-foreground: 39 30% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 24 60% 50%;
+    --primary-foreground: 30 10% 15%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 30 10% 25%;
+    --secondary-foreground: 39 30% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 30 10% 25%;
+    --muted-foreground: 39 20% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 24 60% 50%;
+    --accent-foreground: 30 10% 15%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 39 30% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 30 10% 28%;
+    --input: 30 10% 28%;
+    --ring: 24 60% 50%;
   }
 }
 
@@ -97,5 +83,119 @@
 
   body {
     @apply bg-background text-foreground;
+    background-image: url('/desert-texture.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-wide;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  p, span, a, li, input, textarea, button {
+    @apply font-body;
+  }
+
+  /* Custom distressed card styles */
+  .card-distressed {
+    @apply relative overflow-hidden bg-slab-cream text-slab-dark;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .card-distressed::before {
+    content: "";
+    @apply absolute inset-0 opacity-10;
+    background-image: url('/card-texture.jpg');
+    background-size: cover;
+    mix-blend-mode: multiply;
+  }
+  
+  /* Custom button styles */
+  .btn-distressed {
+    @apply relative overflow-hidden bg-slab-rust text-slab-cream font-display
+           uppercase tracking-wide py-3 px-6 rounded-md transition-all
+           hover:bg-slab-copper hover:shadow-lg;
+  }
+  
+  .btn-distressed::before {
+    content: "";
+    @apply absolute inset-0 opacity-20;
+    background-image: url('/button-texture.jpg');
+    background-size: cover;
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Navbar styling */
+.navbar-link {
+  @apply relative text-lg font-display uppercase tracking-wider px-3 py-2;
+}
+
+.navbar-link::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-0 h-0.5 bg-slab-copper transition-all duration-300;
+}
+
+.navbar-link:hover::after {
+  @apply w-full;
+}
+
+/* Active navbar link */
+.navbar-link.active {
+  @apply text-slab-copper;
+}
+
+.navbar-link.active::after {
+  @apply w-full;
+}
+
+/* Page transition animations */
+.page-enter {
+  @apply opacity-0;
+}
+
+.page-enter-active {
+  @apply opacity-100 transition-opacity duration-300;
+}
+
+.page-exit {
+  @apply opacity-100;
+}
+
+.page-exit-active {
+  @apply opacity-0 transition-opacity duration-300;
+}
+
+/* Card deck styling */
+.card-stack {
+  @apply relative;
+}
+
+.card-stack > * {
+  @apply absolute transition-all duration-300;
+}
+
+.card-stack:hover > *:nth-child(1) {
+  transform: translateY(-20px) rotate(-5deg);
+}
+
+.card-stack:hover > *:nth-child(2) {
+  transform: translateY(-10px) rotate(-2deg);
+}
+
+.card-stack:hover > *:nth-child(3) {
+  transform: translateY(0) rotate(0);
 }
