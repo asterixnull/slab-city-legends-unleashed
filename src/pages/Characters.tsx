@@ -61,7 +61,7 @@ const Characters = () => {
       image: '/generator-gina.jpg',
       role: 'Power Provider',
       description: 'A mechanical genius who keeps the generators, solar panels, and wind turbines running throughout Slab City.',
-      specialAbility: 'Can provide power to any player's camp, giving them an extra action each turn',
+      specialAbility: "Can provide power to any player's camp, giving them an extra action each turn",
       backstory: "Formerly an electrical engineer for a major utility company, Gina grew disillusioned with corporate life and the waste she witnessed. She brought her skills to Slab City, where she helps maintain the fragile infrastructure that provides power to those living off the grid.",
       quotes: [
         "In a world of planned obsolescence, I plan to make everything last forever.",
