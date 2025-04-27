@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { PageContainer } from '@/components/layout/PageContainer';
@@ -26,7 +25,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-slab-dark/30"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-5xl md:text-7xl font-display text-slab-cream mb-4 tracking-wider">SLAB CITY</h1>
-          <h2 className="text-3xl md:text-4xl font-display text-slab-copper mb-8">SLABBERS & SHENANIGANS</h2>
+          <h2 className="text-3xl md:text-4xl font-display text-slab-copper mb-8">SLAB CITY LEGENDS</h2>
           <p className="text-xl text-slab-cream/90 max-w-2xl mx-auto mb-8">
             Welcome to the last free place on earth. A card game of desert survival, 
             community building, and outlandish shenanigans.
@@ -109,7 +108,7 @@ const Index = () => {
             <div>
               <h2 className="text-3xl font-display text-slab-copper mb-6">JOIN THE COMMUNITY</h2>
               <p className="mb-4">
-                Slab City Slabbers & Shenanigans isn't just a card game - it's a community of players,
+                Slab City Legends isn't just a card game - it's a community of players,
                 storytellers, and desert enthusiasts coming together to celebrate this unique place.
               </p>
               <p className="mb-6">

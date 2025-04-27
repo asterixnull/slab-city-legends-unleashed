@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
@@ -10,7 +9,7 @@ export const Footer = () => {
           <div>
             <h3 className="text-xl font-display text-slab-copper mb-4">ABOUT SLAB CITY</h3>
             <p className="text-slab-cream/80">
-              Slab City Slabbers & Shenanigans is a card game set in the last free place on earth - 
+              Slab City Legends is a card game set in the last free place on earth - 
               Slab City, California. Join the community, explore the decks, and earn your Gratitude Gangster points.
             </p>
           </div>
@@ -53,7 +52,7 @@ export const Footer = () => {
             Made with <Heart className="mx-1 text-slab-rust" size={16} /> in Slab City
           </p>
           <p className="text-slab-cream/60 mt-2">
-            © {new Date().getFullYear()} Slab City Slabbers & Shenanigans. All rights reserved.
+            © {new Date().getFullYear()} Slab City Legends. All rights reserved.
           </p>
         </div>
       </div>
