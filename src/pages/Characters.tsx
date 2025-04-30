@@ -1,8 +1,9 @@
-
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { Edit } from 'lucide-react';
 
 const Characters = () => {
   const { toast } = useToast();
@@ -164,14 +165,26 @@ const Characters = () => {
         </div>
         
         <div className="mt-12 bg-slab-dark/80 backdrop-blur-sm text-slab-cream rounded-lg p-6 shadow-lg">
-          <h2 className="text-2xl font-display text-slab-copper mb-4">CREATE A CHARACTER</h2>
-          <p className="mb-4">
-            Have an idea for a Slab City character? Submit your character concept and it might 
-            be included in a future expansion pack!
-          </p>
-          <Button className="bg-slab-copper hover:bg-slab-rust text-slab-cream" asChild>
-            <a href="/submit">SUBMIT CHARACTER IDEA</a>
-          </Button>
+          <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center gap-4">
+            <div>
+              <h2 className="text-2xl font-display text-slab-copper mb-2">CREATE A CHARACTER</h2>
+              <p className="mb-4 md:mb-0">
+                Have an idea for a Slab City character? Submit your character concept and it might 
+                be included in a future expansion pack!
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <Button className="bg-slab-copper hover:bg-slab-rust text-slab-cream" asChild>
+                <Link to="/submit">SUBMIT CHARACTER IDEA</Link>
+              </Button>
+              <Button className="bg-slab-dark border border-slab-copper hover:bg-slab-copper/20 text-slab-copper" asChild>
+                <Link to="/admin">
+                  <Edit className="mr-2 h-4 w-4" />
+                  ADMIN EDIT
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </PageContainer>
