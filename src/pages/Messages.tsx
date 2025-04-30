@@ -178,7 +178,7 @@ const Messages = () => {
           <p>
             Share your game experiences, strategy tips, card trading offers, and Slab City 
             stories with fellow players. This is a community space for all things related to 
-            Slab City Slabbers & Shenanigans.
+            Slab City Legends.
           </p>
         </div>
         

@@ -63,7 +63,7 @@ const Submit = () => {
         <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed mb-8">
           <h2 className="text-2xl font-display text-slab-dark mb-4">SHARE YOUR CREATIVITY</h2>
           <p>
-            Slab City Slabbers & Shenanigans is a community-driven game that thrives on player 
+            Slab City Legends is a community-driven game that thrives on player 
             contributions. Share your stories from the desert or submit your ideas for new 
             cards to help build the Slab City universe!
           </p>
@@ -176,7 +176,7 @@ const Submit = () => {
             <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
               <h3 className="text-2xl font-display text-slab-dark mb-4">DESIGN A CARD</h3>
               <p className="mb-6">
-                Got an idea for a new character, location, or event card? Submit your concept below 
+                Got an idea for a new character, companion, spirit guide, location, or item card? Submit your concept below 
                 and it might be featured in a future expansion deck!
               </p>
               
@@ -219,7 +219,11 @@ const Submit = () => {
                       className="w-full rounded-md border border-input bg-white/70 px-3 py-2"
                     >
                       <option value="character">Character</option>
+                      <option value="companion">Companion</option>
+                      <option value="spirit-guide">Spirit Guide</option>
                       <option value="location">Location</option>
+                      <option value="item">Item</option>
+                      <option value="mission">Mission</option>
                       <option value="event">Event</option>
                       <option value="resource">Resource</option>
                     </select>
@@ -304,6 +308,10 @@ const Submit = () => {
                 <li className="flex items-start">
                   <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
                   <span>Selected designs will earn Gratitude Gangster points and creator credit</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
+                  <span>Real characters, locations, and story elements are especially welcome!</span>
                 </li>
               </ul>
             </div>

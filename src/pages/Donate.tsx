@@ -56,7 +56,7 @@ const Donate = () => {
             <h2 className="text-2xl font-display text-slab-dark">SUPPORT SLAB CITY</h2>
           </div>
           <p className="mb-4">
-            Your donations help keep Slab City Slabbers & Shenanigans growing with new cards, 
+            Your donations help keep Slab City Legends growing with new cards, 
             expansions, and community events. Choose to support specific in-game characters 
             and their causes, or contribute to the overall development of the game.
           </p>
