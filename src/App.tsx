@@ -1,5 +1,6 @@
+
 import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { NavBar } from '@/components/layout/NavBar';
 import { Footer } from '@/components/layout/Footer';
 import Index from '@/pages/Index';
@@ -15,6 +16,12 @@ import { Toaster } from "@/components/ui/toaster"
 import Admin from '@/pages/Admin';
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('Current location:', location.pathname);
+  }, [location]);
+
   return (
     <div className="bg-cover bg-center min-h-screen" style={{ backgroundImage: "url('/desert-texture.jpg')" }}>
       <NavBar />
