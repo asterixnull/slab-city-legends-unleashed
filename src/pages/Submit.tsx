@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { PageContainer } from '@/components/layout/PageContainer';
 import { Button } from "@/components/ui/button";
@@ -26,9 +25,29 @@ const Submit = () => {
     creator: '',
     email: '',
   });
+
+  const [companionForm, setCompanionForm] = useState({
+    name: '',
+    type: 'companion', // companion or spirit-guide
+    description: '',
+    abilities: '',
+    backstory: '',
+    creator: '',
+    email: '',
+  });
   
   const handleStorySubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Save submission to localStorage for admin review
+    const submissions = JSON.parse(localStorage.getItem('slabStorySubmissions') || '[]');
+    submissions.push({
+      ...storyForm,
+      date: new Date().toISOString(),
+      status: 'pending'
+    });
+    localStorage.setItem('slabStorySubmissions', JSON.stringify(submissions));
+    
     toast({
       title: "Story Submitted!",
       description: "Thanks for sharing your Slab City experience.",
@@ -38,11 +57,48 @@ const Submit = () => {
   
   const handleCardSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Save submission to localStorage for admin review
+    const submissions = JSON.parse(localStorage.getItem('slabCardSubmissions') || '[]');
+    submissions.push({
+      ...cardForm,
+      date: new Date().toISOString(),
+      status: 'pending'
+    });
+    localStorage.setItem('slabCardSubmissions', JSON.stringify(submissions));
+    
     toast({
       title: "Card Submitted!",
       description: "Thanks for your creative contribution to Slab City.",
     });
     setCardForm({ cardName: '', cardType: 'character', description: '', abilities: '', creator: '', email: '' });
+  };
+
+  const handleCompanionSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Save submission to localStorage for admin review
+    const submissions = JSON.parse(localStorage.getItem('slabCompanionSubmissions') || '[]');
+    submissions.push({
+      ...companionForm,
+      date: new Date().toISOString(),
+      status: 'pending'
+    });
+    localStorage.setItem('slabCompanionSubmissions', JSON.stringify(submissions));
+    
+    toast({
+      title: "Companion/Spirit Guide Submitted!",
+      description: "Thanks for your creative contribution to Slab City.",
+    });
+    setCompanionForm({ 
+      name: '', 
+      type: 'companion', 
+      description: '', 
+      abilities: '', 
+      backstory: '',
+      creator: '', 
+      email: '' 
+    });
   };
   
   const handleStoryChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,6 +109,11 @@ const Submit = () => {
   const handleCardChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setCardForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCompanionChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setCompanionForm(prev => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -70,7 +131,7 @@ const Submit = () => {
         </div>
         
         <Tabs defaultValue="stories" className="mb-12">
-          <TabsList className="grid grid-cols-2 mb-8">
+          <TabsList className="grid grid-cols-3 mb-8">
             <TabsTrigger value="stories" className="text-lg">
               <FileText className="mr-2 h-5 w-5" />
               Slab Stories
@@ -78,6 +139,10 @@ const Submit = () => {
             <TabsTrigger value="cards" className="text-lg">
               <FileImage className="mr-2 h-5 w-5" />
               Card Designs
+            </TabsTrigger>
+            <TabsTrigger value="companions" className="text-lg">
+              <Users className="mr-2 h-5 w-5" />
+              Companions & Spirits
             </TabsTrigger>
           </TabsList>
           
@@ -176,7 +241,7 @@ const Submit = () => {
             <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
               <h3 className="text-2xl font-display text-slab-dark mb-4">DESIGN A CARD</h3>
               <p className="mb-6">
-                Got an idea for a new character, companion, spirit guide, location, or item card? Submit your concept below 
+                Got an idea for a new character, location, or item card? Submit your concept below 
                 and it might be featured in a future expansion deck!
               </p>
               
@@ -219,8 +284,6 @@ const Submit = () => {
                       className="w-full rounded-md border border-input bg-white/70 px-3 py-2"
                     >
                       <option value="character">Character</option>
-                      <option value="companion">Companion</option>
-                      <option value="spirit-guide">Spirit Guide</option>
                       <option value="location">Location</option>
                       <option value="item">Item</option>
                       <option value="mission">Mission</option>
@@ -312,6 +375,150 @@ const Submit = () => {
                 <li className="flex items-start">
                   <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
                   <span>Real characters, locations, and story elements are especially welcome!</span>
+                </li>
+              </ul>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="companions" className="mt-0">
+            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
+              <h3 className="text-2xl font-display text-slab-dark mb-4">DESIGN A COMPANION OR SPIRIT GUIDE</h3>
+              <p className="mb-6">
+                Got an idea for a new companion or spirit guide for the Slab City universe? Submit your concept below 
+                and it might be featured in a future expansion!
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <a href="#" className="bg-slab-dark hover:bg-slab-rust transition-colors p-4 rounded-lg text-center text-slab-cream">
+                  <Download className="h-8 w-8 mx-auto mb-2" />
+                  <span className="block font-display">COMPANION TEMPLATE</span>
+                </a>
+                <a href="#" className="bg-slab-dark hover:bg-slab-rust transition-colors p-4 rounded-lg text-center text-slab-cream">
+                  <Download className="h-8 w-8 mx-auto mb-2" />
+                  <span className="block font-display">SPIRIT GUIDE TEMPLATE</span>
+                </a>
+              </div>
+              
+              <form onSubmit={handleCompanionSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="name" className="block font-display text-slab-dark mb-1">NAME</label>
+                    <Input 
+                      id="name" 
+                      name="name" 
+                      value={companionForm.name} 
+                      onChange={handleCompanionChange} 
+                      required 
+                      className="bg-white/70"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="type" className="block font-display text-slab-dark mb-1">TYPE</label>
+                    <select 
+                      id="type" 
+                      name="type" 
+                      value={companionForm.type} 
+                      onChange={handleCompanionChange} 
+                      required 
+                      className="w-full rounded-md border border-input bg-white/70 px-3 py-2"
+                    >
+                      <option value="companion">Companion</option>
+                      <option value="spirit-guide">Spirit Guide</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label htmlFor="description" className="block font-display text-slab-dark mb-1">DESCRIPTION</label>
+                  <Textarea 
+                    id="description" 
+                    name="description" 
+                    value={companionForm.description} 
+                    onChange={handleCompanionChange} 
+                    required 
+                    className="bg-white/70 min-h-[100px]"
+                    placeholder="Describe the companion or spirit guide..."
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="abilities" className="block font-display text-slab-dark mb-1">ABILITIES/POWERS</label>
+                  <Textarea 
+                    id="abilities" 
+                    name="abilities" 
+                    value={companionForm.abilities} 
+                    onChange={handleCompanionChange} 
+                    required 
+                    className="bg-white/70 min-h-[100px]"
+                    placeholder="What special abilities does this companion or spirit guide have?"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="backstory" className="block font-display text-slab-dark mb-1">BACKSTORY</label>
+                  <Textarea 
+                    id="backstory" 
+                    name="backstory" 
+                    value={companionForm.backstory} 
+                    onChange={handleCompanionChange} 
+                    required 
+                    className="bg-white/70 min-h-[100px]"
+                    placeholder="Share the backstory of this companion or spirit guide..."
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="creator" className="block font-display text-slab-dark mb-1">YOUR NAME/NICKNAME</label>
+                    <Input 
+                      id="creator" 
+                      name="creator" 
+                      value={companionForm.creator} 
+                      onChange={handleCompanionChange} 
+                      required 
+                      className="bg-white/70"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block font-display text-slab-dark mb-1">EMAIL</label>
+                    <Input 
+                      id="email" 
+                      name="email" 
+                      type="email" 
+                      value={companionForm.email} 
+                      onChange={handleCompanionChange} 
+                      required 
+                      className="bg-white/70"
+                    />
+                  </div>
+                </div>
+                
+                <div className="pt-2">
+                  <Button type="submit" className="btn-distressed">
+                    SUBMIT COMPANION/SPIRIT GUIDE
+                  </Button>
+                </div>
+              </form>
+            </div>
+            
+            <div className="mt-8 bg-slab-dark/80 backdrop-blur-sm text-slab-cream rounded-lg p-6 shadow-lg">
+              <h3 className="text-xl font-display text-slab-copper mb-4">COMPANION & SPIRIT GUIDE GUIDELINES</h3>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
+                  <span>Companions can be human residents, animals, or creative entities of Slab City</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
+                  <span>Spirit guides represent the metaphysical aspect of the game and provide unique insights</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
+                  <span>Consider how your companion or spirit guide will interact with other game elements</span>
+                </li>
+                <li className="flex items-start">
+                  <Check className="text-slab-copper mr-2 h-5 w-5 shrink-0 mt-0.5" />
+                  <span>Real-life Slab City companions are especially valuable for the game's authenticity</span>
                 </li>
               </ul>
             </div>
