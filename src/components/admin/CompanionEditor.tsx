@@ -63,6 +63,17 @@ const CompanionEditor = () => {
       });
     }
   };
+
+  // Fixed method to handle select element changes
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (currentCompanion) {
+      setCurrentCompanion({
+        ...currentCompanion,
+        [name]: value
+      });
+    }
+  };
   
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -259,14 +270,7 @@ const CompanionEditor = () => {
                   id="type"
                   name="type"
                   value={currentCompanion.type}
-                  onChange={(e) => handleInputChange({
-                    ...e,
-                    target: {
-                      ...e.target,
-                      name: 'type',
-                      value: e.target.value as 'companion' | 'spirit-guide'
-                    }
-                  })}
+                  onChange={handleSelectChange}
                   className="w-full rounded-md border border-input bg-white/70 px-3 py-2"
                 >
                   <option value="companion">Companion</option>
