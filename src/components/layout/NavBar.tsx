@@ -1,16 +1,19 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useAuth } from "@/contexts/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export const NavBar = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { toast } = useToast();
+  const { user, profile, signOut } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -20,11 +23,22 @@ export const NavBar = () => {
     setIsMenuOpen(false);
   };
 
-  const handleLoginClick = () => {
-    toast({
-      title: "Coming Soon!",
-      description: "Login functionality will be available soon.",
-    });
+  const handleSignOut = async () => {
+    await signOut();
+    closeMenu();
+  };
+
+  const getInitials = () => {
+    if (profile?.full_name) {
+      return profile.full_name.split(' ').map((n: string) => n[0]).join('').toUpperCase();
+    }
+    if (profile?.username) {
+      return profile.username.substring(0, 2).toUpperCase();
+    }
+    if (user?.email) {
+      return user.email.substring(0, 2).toUpperCase();
+    }
+    return 'U';
   };
 
   const navLinks = [
@@ -66,13 +80,36 @@ export const NavBar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Button 
-                variant="outline" 
-                className="ml-4 bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
-                onClick={handleLoginClick}
-              >
-                Login
-              </Button>
+              
+              {user ? (
+                <div className="flex items-center ml-4 space-x-2">
+                  <Avatar className="h-8 w-8 border border-slab-copper">
+                    <AvatarImage src={profile?.avatar_url} />
+                    <AvatarFallback className="bg-slab-copper/30 text-slab-cream text-xs">
+                      {getInitials()}
+                    </AvatarFallback>
+                  </Avatar>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    className="bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut size={16} className="mr-1" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/auth">
+                  <Button 
+                    variant="outline" 
+                    className="ml-4 bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
+                  >
+                    <User size={16} className="mr-1" /> 
+                    Login
+                  </Button>
+                </Link>
+              )}
             </div>
           )}
         </div>
@@ -91,13 +128,44 @@ export const NavBar = () => {
                   {link.name}
                 </Link>
               ))}
-              <Button 
-                variant="outline" 
-                className="mt-4 bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
-                onClick={handleLoginClick}
-              >
-                Login
-              </Button>
+              
+              {user ? (
+                <div className="flex flex-col space-y-2 mt-4">
+                  <div className="flex items-center space-x-3 px-4 py-2">
+                    <Avatar className="h-8 w-8 border border-slab-copper">
+                      <AvatarImage src={profile?.avatar_url} />
+                      <AvatarFallback className="bg-slab-copper/30 text-slab-cream text-xs">
+                        {getInitials()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-slab-cream">
+                      <div className="font-medium">{profile?.username || profile?.full_name || user.email}</div>
+                      {profile?.username && profile?.full_name && (
+                        <div className="text-xs text-slab-cream/70">{profile.full_name}</div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <Button 
+                    variant="outline" 
+                    className="bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
+                    onClick={handleSignOut}
+                  >
+                    <LogOut size={16} className="mr-2" />
+                    Logout
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/auth" onClick={closeMenu}>
+                  <Button 
+                    variant="outline" 
+                    className="mt-4 w-full bg-slab-copper/20 text-slab-cream border-slab-copper hover:bg-slab-copper hover:text-slab-cream"
+                  >
+                    <User size={16} className="mr-2" /> 
+                    Login
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         )}
