@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,6 +35,7 @@ const registerSchema = loginSchema.extend({
 const Auth = () => {
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isLoading, signIn, signUp } = useAuth();
+  const location = useLocation();
   
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -68,7 +69,9 @@ const Auth = () => {
 
   // Redirect if user is already authenticated
   if (user && !isLoading) {
-    return <Navigate to="/" replace />;
+    // If coming from a specific location, go back there after login
+    const from = location.state?.from?.pathname || '/';
+    return <Navigate to={from} replace />;
   }
 
   return (
@@ -76,7 +79,7 @@ const Auth = () => {
       <div className="max-w-md mx-auto my-12">
         <h1 className="text-4xl font-display text-slab-rust mb-6 text-center">SLAB CITY LEGENDS</h1>
         
-        <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
+        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
           <Tabs defaultValue="login" onValueChange={(value) => setAuthMode(value as 'login' | 'register')}>
             <TabsList className="grid grid-cols-2 w-full mb-6">
               <TabsTrigger value="login">Login</TabsTrigger>
@@ -93,7 +96,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -107,7 +110,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} />
+                          <Input type="password" {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -135,7 +138,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -149,7 +152,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input placeholder="username" {...field} />
+                          <Input placeholder="username" {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -163,7 +166,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Full Name (Optional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" {...field} />
+                          <Input placeholder="John Doe" {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -177,7 +180,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} />
+                          <Input type="password" {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -191,7 +194,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} />
+                          <Input type="password" {...field} className="bg-white" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
