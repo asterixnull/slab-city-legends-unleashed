@@ -17,6 +17,8 @@ import {
   FormMessage 
 } from '@/components/ui/form';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/hooks/use-toast';
+import { Loader } from 'lucide-react';
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -36,6 +38,8 @@ const Auth = () => {
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const { user, isLoading, signIn, signUp } = useAuth();
   const location = useLocation();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const loginForm = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -57,18 +61,49 @@ const Auth = () => {
   });
 
   const onLogin = async (values: z.infer<typeof loginSchema>) => {
-    await signIn(values.email, values.password);
+    try {
+      setIsSubmitting(true);
+      console.log("Login submission with:", values.email);
+      await signIn(values.email, values.password);
+    } catch (error) {
+      console.error("Login error:", error);
+      toast({
+        title: "Login failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const onRegister = async (values: z.infer<typeof registerSchema>) => {
-    await signUp(values.email, values.password, {
-      username: values.username,
-      full_name: values.fullName,
-    });
+    try {
+      setIsSubmitting(true);
+      console.log("Register submission with:", values.email, values.username);
+      await signUp(values.email, values.password, {
+        username: values.username,
+        full_name: values.fullName || '',
+      });
+      toast({
+        title: "Registration successful",
+        description: "Please check your email to confirm your account.",
+      });
+    } catch (error) {
+      console.error("Registration error:", error);
+      toast({
+        title: "Registration failed",
+        description: "Please try again with a different email or username.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Redirect if user is already authenticated
   if (user && !isLoading) {
+    console.log("User authenticated, redirecting to:", location.state?.from?.pathname || '/');
     // If coming from a specific location, go back there after login
     const from = location.state?.from?.pathname || '/';
     return <Navigate to={from} replace />;
@@ -81,14 +116,14 @@ const Auth = () => {
         
         <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 shadow-lg improved-card">
           <Tabs defaultValue="login" onValueChange={(value) => setAuthMode(value as 'login' | 'register')}>
-            <TabsList className="grid grid-cols-2 w-full mb-6 relative z-10">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
+            <TabsList className="grid grid-cols-2 w-full mb-6 pointer-events-auto relative z-20">
+              <TabsTrigger value="login" className="pointer-events-auto">Login</TabsTrigger>
+              <TabsTrigger value="register" className="pointer-events-auto">Register</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="login" className="relative z-10">
+            <TabsContent value="login" className="relative z-20 pointer-events-auto">
               <Form {...loginForm}>
-                <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
+                <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4 pointer-events-auto">
                   <FormField
                     control={loginForm.control}
                     name="email"
@@ -96,7 +131,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-10" />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -110,7 +145,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white relative z-10" />
+                          <Input type="password" {...field} className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -119,18 +154,23 @@ const Auth = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-10"
-                    disabled={isLoading}
+                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-20 pointer-events-auto"
+                    disabled={isLoading || isSubmitting}
                   >
-                    {isLoading ? 'Signing in...' : 'Sign In'}
+                    {isLoading || isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <Loader className="mr-2 h-4 w-4 animate-spin" />
+                        Signing in...
+                      </span>
+                    ) : 'Sign In'}
                   </Button>
                 </form>
               </Form>
             </TabsContent>
             
-            <TabsContent value="register" className="relative z-10">
+            <TabsContent value="register" className="relative z-20 pointer-events-auto">
               <Form {...registerForm}>
-                <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
+                <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4 pointer-events-auto">
                   <FormField
                     control={registerForm.control}
                     name="email"
@@ -138,7 +178,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-10" />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,7 +192,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input placeholder="username" {...field} className="bg-white relative z-10" />
+                          <Input placeholder="username" {...field} className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -166,7 +206,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Full Name (Optional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" {...field} className="bg-white relative z-10" />
+                          <Input placeholder="John Doe" {...field} className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -180,7 +220,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white relative z-10" />
+                          <Input type="password" {...field} className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,7 +234,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white relative z-10" />
+                          <Input type="password" {...field} className="bg-white relative z-20" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -203,10 +243,15 @@ const Auth = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-10"
-                    disabled={isLoading}
+                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-20 pointer-events-auto"
+                    disabled={isLoading || isSubmitting}
                   >
-                    {isLoading ? 'Creating Account...' : 'Create Account'}
+                    {isLoading || isSubmitting ? (
+                      <span className="flex items-center justify-center">
+                        <Loader className="mr-2 h-4 w-4 animate-spin" />
+                        Creating Account...
+                      </span>
+                    ) : 'Create Account'}
                   </Button>
                 </form>
               </Form>
