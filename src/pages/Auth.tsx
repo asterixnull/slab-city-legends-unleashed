@@ -79,14 +79,14 @@ const Auth = () => {
       <div className="max-w-md mx-auto my-12">
         <h1 className="text-4xl font-display text-slab-rust mb-6 text-center">SLAB CITY LEGENDS</h1>
         
-        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 shadow-lg card-distressed">
+        <div className="bg-white/95 backdrop-blur-sm rounded-lg p-6 shadow-lg improved-card">
           <Tabs defaultValue="login" onValueChange={(value) => setAuthMode(value as 'login' | 'register')}>
-            <TabsList className="grid grid-cols-2 w-full mb-6">
+            <TabsList className="grid grid-cols-2 w-full mb-6 relative z-10">
               <TabsTrigger value="login">Login</TabsTrigger>
               <TabsTrigger value="register">Register</TabsTrigger>
             </TabsList>
             
-            <TabsContent value="login">
+            <TabsContent value="login" className="relative z-10">
               <Form {...loginForm}>
                 <form onSubmit={loginForm.handleSubmit(onLogin)} className="space-y-4">
                   <FormField
@@ -96,7 +96,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white" />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -110,7 +110,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white" />
+                          <Input type="password" {...field} className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -119,7 +119,7 @@ const Auth = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream"
+                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-10"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Signing in...' : 'Sign In'}
@@ -128,7 +128,7 @@ const Auth = () => {
               </Form>
             </TabsContent>
             
-            <TabsContent value="register">
+            <TabsContent value="register" className="relative z-10">
               <Form {...registerForm}>
                 <form onSubmit={registerForm.handleSubmit(onRegister)} className="space-y-4">
                   <FormField
@@ -138,7 +138,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white" />
+                          <Input placeholder="example@email.com" {...field} type="email" className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,7 +152,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Username</FormLabel>
                         <FormControl>
-                          <Input placeholder="username" {...field} className="bg-white" />
+                          <Input placeholder="username" {...field} className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -166,7 +166,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Full Name (Optional)</FormLabel>
                         <FormControl>
-                          <Input placeholder="John Doe" {...field} className="bg-white" />
+                          <Input placeholder="John Doe" {...field} className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -180,7 +180,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white" />
+                          <Input type="password" {...field} className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -194,7 +194,7 @@ const Auth = () => {
                       <FormItem>
                         <FormLabel>Confirm Password</FormLabel>
                         <FormControl>
-                          <Input type="password" {...field} className="bg-white" />
+                          <Input type="password" {...field} className="bg-white relative z-10" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -203,7 +203,7 @@ const Auth = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream"
+                    className="w-full bg-slab-copper hover:bg-slab-rust text-slab-cream relative z-10"
                     disabled={isLoading}
                   >
                     {isLoading ? 'Creating Account...' : 'Create Account'}

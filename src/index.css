@@ -117,10 +117,25 @@
   
   .card-distressed::before {
     content: "";
-    @apply absolute inset-0 opacity-10;
+    @apply absolute inset-0 opacity-10 pointer-events-none;
     background-image: url('/card-texture.jpg');
     background-size: cover;
     mix-blend-mode: multiply;
+  }
+  
+  /* Improved card for auth page */
+  .improved-card {
+    @apply relative overflow-hidden bg-slab-cream text-slab-dark;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  
+  .improved-card::before {
+    content: "";
+    @apply absolute inset-0 opacity-10 pointer-events-none;
+    background-image: url('/card-texture.jpg');
+    background-size: cover;
+    mix-blend-mode: multiply;
+    z-index: 1;
   }
   
   /* Custom button styles */
@@ -132,7 +147,7 @@
   
   .btn-distressed::before {
     content: "";
-    @apply absolute inset-0 opacity-20;
+    @apply absolute inset-0 opacity-20 pointer-events-none;
     background-image: url('/button-texture.jpg');
     background-size: cover;
     mix-blend-mode: overlay;
